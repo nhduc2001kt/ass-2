@@ -1,0 +1,6 @@
+[submodule "back"]
+	path = back
+	url = https://github.com/nhduc2001kt/ass-2-back.git
+[submodule "front"]
+	path = front
+	url = https://github.com/nhduc2001kt/ass-2-front.git
