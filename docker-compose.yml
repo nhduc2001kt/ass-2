@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - 27017:27017
+  front:
+    build: ./ass-2-front
+    ports:
+      - 3000:3000
+    environment:
+      REACT_APP_API_HOST: localhost
+      REACT_APP_API_PORT: 8080
+  back:
+    build: ./ass-2-back
+    ports:
+      - 8080:8080
+    environment:
+      DB_HOST: mongo
+      DB_PORT: 27017
+      DB_USERNAME: ${MONGO_USERNAME}
+      DB_PASSWORD: ${MONGO_PASSWORD}
+  # app:
+  #   image: node:12-alpine
+  #   command: sh -c "yarn install && yarn run dev"
+  #   ports:
+  #     - 3000:3000
+  #   working_dir: /app
+  #   volumes:
+  #     - ./app/:/app
+  #     - todo-db:/etc/todos
+  #   environment:
+  #     MYSQL_HOST: mysql
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: secret
+  #     MYSQL_DB: todos
+
+  # mysql:
+  #   image: mysql:5.7
+  #   volumes:
+  #     - todo-mysql-data:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: secret
+  #     MYSQL_DATABASE: todos
+
+# volumes:
+#   todo-mysql-data:
+#   todo-db:
